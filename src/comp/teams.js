@@ -155,8 +155,8 @@ if(data.length===undefined&&team11.length===0){
     
  function teamsetting(){
         console.log(data.team1players)
-        setTeam11(<ol>{data.team1players.map((data)=><li key={data.id}>{data.name}</li>)}</ol>)
-        setTeam22(<ol>{data.team2players.map((data)=><li key={data.id}>{data.name}</li>)}</ol>)
+        setTeam11(<table><th><td>{data.teamname1}</td></th>{data.team1players.map((data)=><tr key={data.id}><td>{data.name}</td></tr>)}</table>)
+        setTeam22(<table><th><td>{data.teamname2}</td></th>{data.team2players.map((data)=><tr key={data.id}><td>{data.name}</td></tr>)}</table>)
        
 }
 // console.log("teamsetting",data.team1players,data.length,team11.length)
@@ -168,16 +168,17 @@ return(
  <div className="section">
     <div className="teamdet">
         <div>
-            <h2>{data.teamname1}</h2>
+            {/* <h2>{data.teamname1}</h2> */}
             <div className="list">{team11}</div>
         </div>
      
      <h2>Vs</h2>
      <div>
-     <h2>{data.teamname2}</h2>
+     {/* <h2>{data.teamname2}</h2> */}
      <div  className="list">{team22}</div>
      </div>
     </div>
+    <div className="toss">
     <div>
         <h2>Who Is Batting First?</h2>
       <button className="team1" onClick={click1}>{data.teamname1}</button> 
@@ -196,7 +197,7 @@ return(
     </div>
 
     <Link to="/match"><button onClick={click10}>submit</button></Link>
-
+    </div>
     
         <div>
         {/* <h1>{postdata.batting}</h1>

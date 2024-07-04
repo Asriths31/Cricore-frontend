@@ -1,11 +1,11 @@
 body{
-    background-color: rgb(236, 76, 18);
+    background:linear-gradient(crimson,rgb(233, 100, 126));
 
 }
 
 .section{
     min-height: 100vh;
-    background-color: rgb(236, 76, 18);
+    background:linear-gradient(crimson,rgb(233, 100, 126));
     display: block;
     width: 100vw;
     margin: 0 auto;
@@ -24,7 +24,16 @@ body{
     color: crimson;
 }
 
-
+.home h2{
+    color: bisque;
+}
+.home button{
+    width: 130px;
+    height: 40px;
+    background-color: bisque;
+    border-radius: 20px;
+    border: 2px solid crimson;
+}
 
 /* header */
 .head{
@@ -94,40 +103,49 @@ body{
 
 .inputs{
     width: 100vw;
-    height: 40vh;
+    height: auto;
     display: flex ;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     /* margin: 30px 0 0 0 ; */
     color: cornsilk;
-    background-color: crimson;
+    /* background-color: crimson; */
 }
 .inputs p{
     margin-bottom: -7px ;
+    font-weight: bolder;
+    font-size: larger;
 }
 .inputs input{
-    width: 70vw;
-    height: 40px;
+    width: 60vw;
+    height: 60px;
+    border-radius: 10px;
     margin-top: 20px;
+    text-indent: 20px;
+    font-size: large;
 }
 .inputs button{
     margin: 20px 0;
-    width: 60vw;
-    height: 40px;
+    width: 40vw;
+    height: 60px;
+    border-radius: 10px;
+    color: rgb(243, 109, 109);
+     font-weight: bold;
+     font-size: large;
 }
 
 .teamname{
     position: relative;
-    height: 190px;
+    height: 90px;
     width: 100vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: center;
     font-size: medium;
-    color: crimson;
-    margin-bottom: -50px;
+    color: rgb(255, 210, 219);
+    /* margin-bottom: -50px; */
     /* background-color: aqua; */
     /* margin: -100px 0 0 0; */
 
@@ -148,31 +166,165 @@ body{
 }
 
 .playersname{
-    width: 70vw;
-    display: block;
-    margin: 0 auto;
-    text-align: start;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    /* text-align: start; */
     font-size: larger;
     font-weight: bolder;
-    color: crimson;
+    color:beige;
     /* background-color: aqua; */
 }
+table{
+    /* border: 1px solid black; */
+    width: 300px;
+    margin-top: 10px;
+    border-collapse:collapse ;
 
+    /* background-color: rgb(62, 184, 184); */
+}
+ th,td{
+    border: 1px solid rgb(231, 73, 94);
+    border-collapse:collapse ;
+    color: rgb(231, 73, 94);
+    background-color: beige;
+}
 
+.players{
+    color: beige;
+}
+
+.team1{
+
+}
+
+.entering{
+   display: block;
+   width: 290px;
+   margin: 0 auto;
+}
+.entering input{
+    width: 100%;
+    border-radius: 10px;
+    text-indent: 10px;
+    margin-bottom:10px ;
+    font-size: larger;
+}
+.entering div button{
+    width: 50%;
+    border-radius: 20px;
+}
+.entering div{
+    width: 100%;
+    /* background-color: aqua; */
+}
+.submit{
+    width: 170px;
+    margin: 20px;
+    border-radius: 20px;
+}
 /* teams */
 
 .teamdet{
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    color: aliceblue;
+    /* background-color: antiquewhite; */
+    text-align: center;
+    font-weight: bolder;
+
+}
+.teamdet th td{
+    text-align: center;
+    /* color: black; */
+    font-size:x-large;
+    width: 300px;
+    border: none;
+    
 }
 .list{
-    text-align: start;
 }
+.toss{
+    display: block;
+    margin: 60px auto;
+    /* background-color: beige; */
+    width: 70vw;
+    color: beige;
+}
+.toss button{
+    height: 40px;
+    width: 90px;
+    font-size: large;
+    color: crimson;
 
+}
+.toss .team1{
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+}
+.toss .team2{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.toss .team1:focus{
+    background-color: crimson;
+    color: beige;
+}
+.toss .team2:focus{
+    background-color: crimson;
+    color: beige;
+}
+.toss select{
+    height: 40px;
+    width: 90px;
+    color: crimson;
+    border: 3px solid crimson;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+.toss select option{
+    border: 3px solid crimson;
+    border-radius: 10px;
 
+    height:20px;
+    width: 40px;
+}
 
 /* update */
 
 .options{
-    margin-top: 50px;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    height: 50vh;
+    width: 50vw;
+    /* backdrop-filter: blur(10px); */
+    background-color: rgba(201, 81, 105, 0.8);
+    border: 6px solid rgb(228, 164, 164);
+    border-radius: 9px;
+    justify-content: center;
+    align-items: center;
+    left: 25vw;
+    top: 25vh;
+    /* right: 50%; */
+}
+.options button{
+    margin: 10px;
+    width: 120px;
+    height: 60px;
+    background-color: crimson;
+    color: beige;
+    border-radius: 8px;
+    border: 3px solid rgb(228, 164, 164);
+    font-size: large;
+    font-weight: bold;
+}
+.options button:focus{
+    background-color: beige;
+    color: crimson;
+}
+.options button:hover{
+    background-color: rgb(243, 184, 184);
+    color: crimson;
 }

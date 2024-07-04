@@ -16,6 +16,8 @@ function Sign(){
    const[team22,setTeam22]=React.useState([])
    const[list,setList]=React.useState(0)
    const [toggle,setToggle]=React.useState(false)
+//    const[sno,setSno]=React.useState(1)
+var sno=1
 //  let team1=[]
 //    let team2=[]
   function handlechange1(e){
@@ -69,21 +71,38 @@ function Sign(){
         // console.log("kolip")
     }
     if(team1.length<11){
-    setTeam11(<ol>{team1.map((prev)=>{
+    setTeam11(<table>
+        <tr>
+            <th>S.NO</th>
+            <th>PlayerName</th>
+        </tr>
+        {team1.map((prev)=>{
+            
         return(
-            <li>{prev}</li>
+            <tr>
+                <td>{sno++}</td>
+                <td>{prev}</td>
+            </tr>
             
         )
-    })}</ol>)}
+    })}</table>)}
     else if(team2.length<12){
         // console.log("teamwe23222")
-        setTeam22(<ol>{team2.map((prev)=>{
-            return(
+        setTeam22(<table>
+            <tr>
+                <th>S.NO</th>
+                <th>PlayerName</th>
+            </tr>
+            {team2.map((prev)=>{
                 
-                <li>{prev}</li>
-               
+            return(
+                <tr>
+                    <td>{sno++}</td>
+                    <td>{prev}</td>
+                </tr>
+                
             )
-        })}</ol>)
+        })}</table>)
     }
     // console.log("team11",team11)
     // console.log("team22",team22.length)
@@ -131,20 +150,31 @@ function Sign(){
      </div>
      <div className="players">
         {count?
-     (playing?(<div>
+     (playing?(
+     <div className="team1">
         <h2>Enter the players of {teamname1}</h2>
+        <div className="entering">
         <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey}></input>
+        <div>
         <button onClick={handleclick}>Add</button>
         <button onClick={remove}>remove</button>
+        </div>
 
+        </div>
         <div className="playersname">
             {team11}
         </div>
     </div>
-        ):<div> <h2>Enter the players of {teamname2}</h2>
+        ):<div className="team2">
+             <h2>Enter the players of {teamname2}</h2>
+       <div className="entering">
         <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey}></input>
+        <div>
         <button onClick={handleclick}>Add</button>
         <button onClick={remove}>remove</button>
+        </div>
+
+        </div>
 
         <div className="playersname">
             {team22}
@@ -152,7 +182,7 @@ function Sign(){
     </div> ):<p></p>   
     
     }
-    {toggle?<Link to="/teams"><button onClick={post}>Submit</button></Link>:<p></p>}
+    {toggle?<Link to="/teams"><button onClick={post} className="submit">Submit</button></Link>:<p></p>}
     </div>
     </div>
     </>

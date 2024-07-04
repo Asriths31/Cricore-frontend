@@ -1,14 +1,14 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 function Add(props){
   
  
   const[toggle1,setToggle1]=React.useState(false)
-  const[replace,setReplace]=React.useState(false)
+  // const[replace,setReplace]=React.useState(false)
 
 function handletoggle1(e){
     setToggle1(prev=>!prev)
-    console.log(e)
+    // console.log(e)
     props.handletoggle(e)
   //   if(props.count!==0&&(props.count)%6===0&&replace){
   //     setReplace(true)
@@ -29,9 +29,9 @@ function handletoggle1(e){
   {props.data1.team2players.map((players)=>
   <option key={players.id} value={players.name}>{players.name}</option>)}</select>)
 }
-  console.log(props.toggle) 
+  // console.log(props.toggle) 
   function newbatsman(e){
-    console.log(props.toggle,"hi")
+    // console.log(props.toggle,"hi")
     if(props.toggle){
            props.setStriker([e.target.selectedIndex,e.target.value])
     }
@@ -46,12 +46,12 @@ if(props.count===props.totalovers*6){
   props.nextinnings()
 }
 
-function newbowler(e){
-  setReplace(false)
-  setToggle1(true)
+// function newbowler(e){
+//   setReplace(false)
+//   setToggle1(true)
 
   
-}
+// }
 
 
 return(
@@ -73,9 +73,9 @@ return(
 
 
 
-  {(props.count===props.totalovers*6)?(<span></span>):<button onClick={handletoggle1}>Add new ball</button>}
-  <h2>total bowls{props.totalovers*6}</h2><h2>balls remaining {(props.totalovers*6)-(props.count)}</h2>
-  {replace?props.selection2:<span></span>}
+  {(props.count*6===props.totalovers*6)?(<span></span>):<button onClick={handletoggle1}>Add new ball</button>}
+  <h2>total bowls{props.totalovers*6}</h2><h2>balls remaining {(props.totalovers*6)-(props.count*6)}</h2>
+  {/* {replace?props.selection2:<span></span>} */}
 
   </>
 

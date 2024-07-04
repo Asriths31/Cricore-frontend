@@ -5,6 +5,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Home from "./comp/home.js"
 import Sign from "./comp/sign.js"
 import Teams from "./comp/teams.js"
+import Chase from "./comp/chase.js"
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path='/match' element={<Header />}></Route>
       <Route path='/sign' element={<Sign />}></Route>
       <Route path='/teams' element={<Teams />}></Route>
+      <Route path='/chase' element={<Chase/>}></Route>
   </Routes>
     
     

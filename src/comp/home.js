@@ -16,7 +16,7 @@ function Home(){
     return(
         <div className="section">
             <div className="home">
-        <h2>Welcome!to the Scoring app {data}</h2>
+        <h2>Welcome!to the Scoring app</h2>
        <Link to="/sign"> <button>Get Started</button></Link>
        </div>
     </div>

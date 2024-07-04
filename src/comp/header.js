@@ -1,4 +1,5 @@
 import React from "react"
+import{Link} from "react-router-dom"
 import axios from "axios"
 import "./App.css"
 import img1 from "./img/cricket (2).png"
@@ -24,17 +25,22 @@ function Header(){
    const[teamwickets,setTeamwickets]=React.useState(0)
    const[timeline,setTimeline]=React.useState([])
    var[count,setCount]=React.useState(0)
+   const[count1,setCount1]=React.useState(0)
    const[batting,setBatting]=React.useState("")
    const[bowling,setBowling]=React.useState("")
    const[arrival,setArrival]=React.useState(false)
    const[selection1,setSelection1]=React.useState([])  
     const[selection2,setSelection2]=React.useState([])
     const[selection3,setSelection3]=React.useState([])
+    const[chase,setChase]=React.useState(false)
 
    //  const timeline1=timeline.map((prev)=><h2>{prev}</h2>   
    //      // console.log(prev)
    //  )
-
+if(count*1===overs*1){
+   console.log("overrrrrrr")
+   nextinnings()
+}
 React.useEffect(()=>{
    axios.get(`${process.env.REACT_APP_API_URL}/toss`)
    .then((res)=>{
@@ -45,7 +51,7 @@ React.useEffect(()=>{
       setOvers(data.overs)
       setBatting(data.batting)
       setBowling(data.bowling)
-      console.log(data.overs,78)
+      // console.log(data.overs,78)
    })
 },[])
 React.useEffect(()=>{
@@ -81,7 +87,7 @@ async function newbowler(e){
 async function nextinnings(){
 
    console.log("in next innings")
-   axios.patch(`${process.env.REACT_APP_API_URL}/update`,
+  const res= await axios.patch(`${process.env.REACT_APP_API_URL}/update`,
    {team:batting,
     score:teamruns,
     wickets:teamwickets,
@@ -113,8 +119,10 @@ const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${str
    { headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }})
-  console.log("responses",response1,response)
+  console.log("responses",response1,response,res)
   console.log("idssss",striker[0],nonstriker[0])
+  setTeamruns(res.data.score)
+  setChase(true)
 }
 
 async function handlewicket(){
@@ -167,33 +175,21 @@ async function handlewicket(){
 }
 // console.log(selection)
 
-function handleclick(){
-   console.log("clickeddd")
-   setCount(prev=>prev+1)
-   if(overs>=(oversplayed+0.1)){ 
-      
-      console.log("played")
-   if(oversplayed+0.1===0.6){
-      setOversplayed(1)
+function handleclick(e){
+   // console.log("clickeddd")
+   setCount1(prev=>prev+1)
+   if(count1==5){
+      setCount1(0)
+      setCount(prev=>prev+1)
+      newbowler(e)
    }
-    else{
-      if((oversplayed!==0)&&(count%6===0))  {
-         setOversplayed(count/6)
-        console.log(count)
-    }
-    else setOversplayed(prev=>Math.round((prev+0.1)*100)/100)
-    console.log("clickedd",oversplayed)
-   }}
-    else{
-        console.log("match completed")
-        nextinnings()
-    }
-   
-   console.log(count!==0&&count%6===0,count)
+   setOversplayed(count)
+
 }
    function handletoggle(e){
       
-     if(teamwickets<10 && count!==data.overs*6){ console.log(count!==overs*6,overs*6,count,"count")
+     if(teamwickets<10 && count!==data.overs*6){ 
+      // console.log(count!==overs*6,overs*6,count,"count")
       switch (e.target.className) {
          case "single":
             setToggle(prev=>!prev)
@@ -386,7 +382,7 @@ function handleclick(){
    // console.log(data)
 
    // console.log(data1.teamname1)
-console.log(oversplayed,"oversplayed")
+// console.log(oversplayed,"oversplayed")
 
     return(
      <>
@@ -400,7 +396,7 @@ console.log(oversplayed,"oversplayed")
       <div className="score">
          <h2>Vs</h2>
          <h3>{teamruns}/{teamwickets}</h3>
-         <h4>({oversplayed})/({overs})</h4>
+         <h4>({count}.{count1})/({overs})</h4>
 
       </div>
       <div className="teams">
@@ -431,6 +427,10 @@ console.log(oversplayed,"oversplayed")
      </div>
      {arrival?((batting===data1.teamname1)?selection1:selection2):<span></span>}
      {/* {selection} */}
+     {chase?<div><h3>your target is {(teamruns)*1+1}</h3>
+     <h2>click here to start 2nd innings</h2>
+     <Link to="/chase"><button>start 2nd innings</button></Link>
+     </div>:<span></span>}
      </>
 
     )
