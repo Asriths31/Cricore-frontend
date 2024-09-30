@@ -1,12 +1,12 @@
 import React from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { json, Link } from "react-router-dom"
 import "./App.css"
 
 function Sign(){
    
-   const [teamname1,setTeamname1]=React.useState("")
-   const [teamname2,setTeamname2]=React.useState("")
+   var [teamname1,setTeamname1]=React.useState("")
+   var [teamname2,setTeamname2]=React.useState("")
    const[count,setCount]=React.useState(false)
    const[playing,setPlaying]=React.useState(true)
    const[team1,setTeam1]=React.useState([])
@@ -16,10 +16,53 @@ function Sign(){
    const[team22,setTeam22]=React.useState([])
    const[list,setList]=React.useState(0)
    const [toggle,setToggle]=React.useState(false)
+   const[alert,setAlert]=React.useState(false)
 //    const[sno,setSno]=React.useState(1)
 var sno=1
 //  let team1=[]
 //    let team2=[]
+
+
+React.useEffect(()=>{
+    window.onload=reload()
+
+},[])
+
+
+
+function reload(){
+    console.log("lo")
+    // teamname1=localStorage.getItem("teamname1")
+  if(localStorage.getItem("teamname1")!==null)  setTeamname1(JSON.parse(localStorage.getItem("teamname1")))
+if(localStorage.getItem("teamname2")!==null) setTeamname2(JSON.parse(localStorage.getItem("teamname2")))
+ if(localStorage.getItem("team1")!==null )setTeam1(JSON.parse(localStorage.getItem("team1")))
+    if(localStorage.getItem("team2")!==null) setTeam2(JSON.parse(localStorage.getItem("team2")))
+            // console.log(JSON.parse(localStorage.getItem("player")))
+handlesubmit(JSON.parse(localStorage.getItem("teamname1")))
+setList(prev=>prev+1)
+
+
+    
+}
+// if(teamname1==null && !count){
+//     setCount(true)
+//     }
+window.onbeforeunload = function() {
+    console.log("ji")
+    localStorage.setItem("teamname1",JSON.stringify(teamname1))
+    localStorage.setItem("teamname2",JSON.stringify(teamname2))
+    localStorage.setItem("team1",JSON.stringify(team1))
+    localStorage.setItem("team2",JSON.stringify(team2))
+    localStorage.setItem("player",JSON.stringify(player))
+
+    
+}
+function handlesubmit(f){
+    console.log(teamname1.length)
+    if((teamname1.length>0)||f!==null){
+    setCount(true)
+    }
+}
   function handlechange1(e){
          setTeamname1(e.target.value)
   }
@@ -27,9 +70,12 @@ var sno=1
     setTeamname2(e.target.value)
 }
    function handleplayers(e){
-    setPlayer(e.target.value)
+    
+        setPlayer(e.target.value)
    }
-   function handleclick(){
+   function handleclick(t){
+    if(player.length>=1 ){
+    setAlert(false)
     setList((prev)=>prev+1)
     
     if(team1.length<11) {
@@ -43,13 +89,18 @@ var sno=1
         }
       team2.push(player)
      }
-     else{
-        
-     }
+    
      console.log(team1)
      console.log(team2)
     
    }
+  else{
+         setAlert(true)
+  }
+  
+}
+
+
    function remove(){
     setList((prev)=>{
         return prev+1
@@ -113,7 +164,9 @@ var sno=1
 
   function post(){
     axios.post(`${process.env.REACT_APP_API_URL}/post`,{
-        teamname1:teamname1,
+        // axios.post(`http://localhost:2001/post`,{
+
+    teamname1:teamname1,
         teamname2:teamname2,
         team1:team1,
         team2:team2
@@ -129,6 +182,7 @@ var sno=1
         handleclick()
     }
   }
+  
 
     return(
     <>
@@ -137,7 +191,7 @@ var sno=1
     <input placeholder="Enter the team name" onChange={handlechange1}></input>
     <p>Vs</p>
     <input placeholder="Opponent team" onChange={handlechange2}></input>
-    <button onClick={()=>setCount(true)}>Submit</button>
+    <button onClick={handlesubmit}>Submit</button>
     </div>
     <div >
      {count?(
@@ -152,9 +206,10 @@ var sno=1
         {count?
      (playing?(
      <div className="team1">
-        <h2>Enter the players of {teamname1}</h2>
+        <h2>Enter the 11 players of {teamname1}</h2>
         <div className="entering">
-        <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey}></input>
+        <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey} required></input>
+        {alert?<span>Please enter a name</span>:<span></span>}
         <div>
         <button onClick={handleclick}>Add</button>
         <button onClick={remove}>remove</button>
@@ -166,9 +221,11 @@ var sno=1
         </div>
     </div>
         ):<div className="team2">
-             <h2>Enter the players of {teamname2}</h2>
+             <h2>Enter the 11 players of {teamname2}</h2>
        <div className="entering">
-        <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey}></input>
+        <input placeholder="enter the playersname" onChange={handleplayers} value={player}  onKeyDown={handlekey} required></input>
+        {alert?<span>Please enter a name</span>:<span></span>}
+
         <div>
         <button onClick={handleclick}>Add</button>
         <button onClick={remove}>remove</button>

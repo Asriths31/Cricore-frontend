@@ -12,7 +12,7 @@ const[nonstriker,setNonstriker]=React.useState([<select><option>select</option><
 const[bowler,setBowler]=React.useState([<select><option>select</option></select>])
 const[overs,setOvers]=React.useState(0)
 // let team11,team22
-
+localStorage.clear()
 
 
 function click1(e){
@@ -43,7 +43,7 @@ function click1(e){
     })
         console.log("postdata1",postdata)
 }
-function click2(){
+function click2(){  
     setPostdata((prev)=>{
         
         setStriker(
@@ -77,6 +77,7 @@ function click3(e){
     // console.log("cleck3",(e.target.selectedIndex))
    setPostdata((prev)=>{
     // console.log(prev,"prevvvv",striker,)
+    console.log("id",e.target.selectedIndex)
     return({...prev,
         striker:{id:e.target.selectedIndex,name:e.target.value}})
    })
@@ -109,6 +110,7 @@ function click4(e){
 
 function click10(e){
     axios.post(`${process.env.REACT_APP_API_URL}/toss`,postdata,
+    // axios.post(`http://localhost:2001/toss`,postdata,
     {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -127,6 +129,8 @@ function handlerequest(){
 async function api(){
     try{
         const response=await axios.get(`${process.env.REACT_APP_API_URL}/teams`)
+        // const response=await axios.get(`http://localhost:2001/teams`)
+
         //  setData(response.data) 
          console.log(response.data)
           setData(response.data)
@@ -192,11 +196,11 @@ return(
         <h2>who is the bowler</h2>
         {bowler}
         <h2>how many overs</h2>
-        <input onChange={click6}></input>
+        <input onChange={click6} placeholder="Enter The No Of Overs" type="number" required></input>
         
     </div>
 
-    <Link to="/match"><button onClick={click10}>submit</button></Link>
+    <Link to="/match"><button onClick={click10} className="rahul">submit</button></Link>
     </div>
     
         <div>

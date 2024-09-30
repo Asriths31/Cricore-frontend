@@ -1,11 +1,11 @@
 body{
-    background:linear-gradient(crimson,rgb(233, 100, 126));
+    background:#FCF5E5		;
 
 }
 
 .section{
     min-height: 100vh;
-    background:linear-gradient(crimson,rgb(233, 100, 126));
+    /* background:rgba(221, 221, 193, 0.411); */
     display: block;
     width: 100vw;
     margin: 0 auto;
@@ -22,19 +22,33 @@ body{
     align-items: center;
     justify-content: center;
     color: crimson;
+    animation: pop 3s ;
+
 }
 
 .home h2{
-    color: bisque;
+    color: crimson;
 }
 .home button{
     width: 130px;
     height: 40px;
-    background-color: bisque;
+    background-color: rgb(255, 255, 255);
     border-radius: 20px;
     border: 2px solid crimson;
-}
+    color: rgb(220, 43, 20);
+    font-weight: 600;
+    /* animation: pop 4s ; */
 
+}
+.ball{
+    position: absolute;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    background-color: crimson;
+    border-radius: 50px;
+    animation: bounce 7s;
+}
 /* header */
 .head{
     display: flex;
@@ -42,6 +56,7 @@ body{
     justify-content:end;
     height: 70vh;
     background-color: crimson;
+    border: 2px solid beige;
 
 }
 .dot{
@@ -49,6 +64,17 @@ body{
     width: 10px;
     border-radius: 50%;
     background-color: white;
+}
+.batsmen{
+    /* background-color: black; */
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.batsmen span{
+    font-weight: bold;
+    font-size: large;
 }
 .cont{
    display: flex;
@@ -82,20 +108,128 @@ body{
 
 .card{
     display: flex;
+    width: 100vw;
+    height: 390px;
+    /* background-color: aqua; */
+    align-items: center;
     justify-content: space-around;
-    color: cornsilk;
+    color: beige;
+    margin-top: -100px;
 }
-.bowling h3{
-    margin-bottom: -20px;
+.bowling{
+    /* background-color: black; */
+    height: 100px;
+    width:220px;
 }
+
 .batting h3{
   margin-bottom: -20px;
 }
+.bowling h3{
+    /* background-color: aliceblue; */
+    width: 200px;
+    text-align: center;
+    /* height: 20px; */
+    margin-bottom: 1px;
+ }
+ .timeline{
+     display: flex;
+     /* background-color: rgb(16, 27, 27); */
+     flex-wrap: wrap;
+     align-items: center;
+ }
+ .timeline h2{
+     text-align: center;
+     /* margin-left: 30px; */
+     /* background-color: rgb(243, 162, 55); */
+     border: 2px solid beige;
+     min-width: 30px;
+     height: 30px;
+     /* font-size: small; */
+     margin-bottom: -20px;
+ }
+ 
 
-.timeline{
+.selection{
+    position: absolute;
     display: flex;
-    gap: 4px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 60vh;
+    width: 76vw;
+    /* backdrop-filter: blur(10px); */
+    background-color: rgba(201, 81, 105, 0.8);
+    border: 6px solid rgb(228, 164, 164);
+    border-radius: 9px;
+    color: beige;
+    justify-content: center;
+    align-items: center;
+    left: 12vw;
+    top: 25vh;
 }
+.selection select{
+    width: 130px;
+    height: 60px;
+    background-color: crimson;
+    color: beige;
+    border-radius: 8px;
+    border: 3px solid rgb(228, 164, 164);
+    font-size: large;
+    font-weight: bold;
+}
+.target{
+    color: beige;
+    background-color: crimson;
+    text-align: center;
+    padding:40px ;
+}
+.target button{
+    width: 130px;
+    height: 60px;
+    background-color: crimson;
+    color: beige;
+    border-radius: 8px;
+    border: 3px solid rgb(228, 164, 164);
+    font-size: large;
+    font-weight: bold;
+}
+.target button:hover{
+    background-color: beige;
+    color: crimson;
+}
+
+.scorecard{
+    /* background-color: aqua; */
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+.scorecard table{
+    border-collapse: collapse;
+    width: 30vw;
+}
+.scorecard table th{
+    text-align: center;
+    border-radius: 0;
+    border: 2px solid rgb(218, 211, 211);
+    width: 27vw;
+    height: 40px;
+    
+}
+.scorecard table td{
+    background-color:transparent;
+    color: white;
+    height: 30px;
+}
+.scorecard table tr td{
+    color: crimson;
+    border: 2px solid crimson;
+}
+
+
 
 
 /* sign */
@@ -109,7 +243,7 @@ body{
     align-items: center;
     justify-content: center;
     /* margin: 30px 0 0 0 ; */
-    color: cornsilk;
+    color: rgb(243, 241, 240);
     /* background-color: crimson; */
 }
 .inputs p{
@@ -128,9 +262,12 @@ body{
 .inputs button{
     margin: 20px 0;
     width: 40vw;
-    height: 60px;
+    height: 50px;
+    border: 2px solid rgb(32, 25, 25);
     border-radius: 10px;
-    color: rgb(243, 109, 109);
+    color: rgb(24, 22, 18);
+    background-color: white;
+    border-radius: 30px;
      font-weight: bold;
      font-size: large;
 }
@@ -144,7 +281,7 @@ body{
     align-items: center;
     text-align: center;
     font-size: medium;
-    color: rgb(255, 210, 219);
+    color: rgb(24, 18, 19);
     /* margin-bottom: -50px; */
     /* background-color: aqua; */
     /* margin: -100px 0 0 0; */
@@ -172,26 +309,36 @@ body{
     /* text-align: start; */
     font-size: larger;
     font-weight: bolder;
-    color:beige;
+    color:rgb(15, 15, 14);
     /* background-color: aqua; */
 }
 table{
     /* border: 1px solid black; */
     width: 300px;
     margin-top: 10px;
-    border-collapse:collapse ;
+    /* border-collapse:collapse ; */
+    border-radius: 2px;
 
     /* background-color: rgb(62, 184, 184); */
 }
- th,td{
-    border: 1px solid rgb(231, 73, 94);
-    border-collapse:collapse ;
-    color: rgb(231, 73, 94);
-    background-color: beige;
-}
-
-.players{
+ th{
+    /* border: 1px solid rgb(231, 73, 94); */
+    /* border-collapse:collapse ; */
+    background-color: rgb(231, 73, 94);
+    border-radius: 20px;
     color: beige;
+}
+td{
+    /* border: 1px solid rgb(231, 73, 94); */
+    border-radius: 20px;
+    /* margin-bottom: 20px; */
+    background-color: rgb(212, 183, 188);
+    color: rgb(231, 73, 94);
+
+
+}
+.players{
+    color: rgb(10, 10, 9);
 }
 
 .team1{
@@ -229,51 +376,67 @@ table{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: aliceblue;
+    color: crimson;
     /* background-color: antiquewhite; */
     text-align: center;
     font-weight: bolder;
-
+    width: 60vw;
+    margin:0 auto;
 }
 .teamdet th td{
     text-align: center;
-    /* color: black; */
+    color: beige;
     font-size:x-large;
+    background-color: rgb(223, 56, 92);
     width: 300px;
-    border: none;
+    border: 4px solid beige;
     
 }
-.list{
+.list table{
+    width: 100%;
 }
 .toss{
     display: block;
     margin: 60px auto;
     /* background-color: beige; */
     width: 70vw;
-    color: beige;
+    color: crimson;
 }
 .toss button{
     height: 40px;
     width: 90px;
     font-size: large;
     color: crimson;
-
+    background-color: beige;
+    border: 3px solid crimson;
 }
 .toss .team1{
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
+      
 }
 .toss .team2{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-left:none ;
+
 }
 .toss .team1:focus{
-    background-color: crimson;
-    color: beige;
+    background-color:  crimson;
+    color:beige ;
 }
 .toss .team2:focus{
-    background-color: crimson;
-    color: beige;
+    background-color:  crimson;
+    color:beige ;
+}
+
+.toss .team1:hover{
+    background-color:  rgb(226, 154, 163);
+    color:crimson ;
+}
+.toss .team2:hover{
+    background-color:  rgb(226, 154, 163);
+    color:crimson ;
 }
 .toss select{
     height: 40px;
@@ -290,28 +453,70 @@ table{
     height:20px;
     width: 40px;
 }
-
+.toss input{
+    height: 50px;
+    width: 190px;
+    border-radius: 12px;
+    text-indent: 10px;
+    margin-bottom: 20px;
+    border: 3px solid crimson;
+    text-align: center;
+    font-size: medium;
+}
+.rahul{
+    /* background-color: beige; */
+    /* color: crimson; */
+    /* border: 3px solid crimson; */
+    border-radius: 10px;
+    /* font-weight: bold; */
+    /* width: 240px; */
+    /* height: 20px; */
+}
+.rahul:hover{
+   
+    background-color: crimson;
+    /* border: 3px solid crimson; */
+    color: beige;
+    /* border: 3px solid beige; */
+    border-radius: 15px;
+}
 /* update */
+.newball{
+    height: 90px;
+    width: 80vw;
+    margin: 25px auto -10px auto;
+    background-color: beige;
+    color: crimson;
+    border-radius: 8px;
+    border: 3px solid rgb(228, 164, 164);
+    font-size: large;
+    font-weight: bold;
+}
 
+.newball:hover{
+    background-color: rgb(204, 83, 83);
+    color: beige;
+}
 .options{
     position: absolute;
     display: flex;
     flex-wrap: wrap;
-    height: 50vh;
-    width: 50vw;
+    height: 60vh;
+    width: 76vw;
     /* backdrop-filter: blur(10px); */
     background-color: rgba(201, 81, 105, 0.8);
     border: 6px solid rgb(228, 164, 164);
     border-radius: 9px;
     justify-content: center;
     align-items: center;
-    left: 25vw;
+    left: 12vw;
     top: 25vh;
+    overflow: scroll;
     /* right: 50%; */
 }
 .options button{
     margin: 10px;
-    width: 120px;
+    width: 130px;
     height: 60px;
     background-color: crimson;
     color: beige;
@@ -327,4 +532,49 @@ table{
 .options button:hover{
     background-color: rgb(243, 184, 184);
     color: crimson;
+}
+.total{
+    display: flex;
+    width: 80vw;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.total h2{
+    font-size: medium;
+    color: beige;
+}
+
+
+
+@keyframes pop{
+    from{
+       scale: 0.6;
+    }
+    to{
+       scale: 1;
+    }
+}
+@keyframes bounce{
+    0%{
+        top: 0;
+    }
+    7%{
+        top: 100vh;
+    }
+    10%{
+        top: 70vh;
+        /* left: 30vw; */
+    }
+    12%{
+        top: 100vh;
+    }
+    70%{
+        top: 80vh;
+    }
+    80%{
+        top: 100vh;
+    }
+    100%{
+        top: 100vh;
+    }
 }

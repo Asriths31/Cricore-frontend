@@ -2,7 +2,6 @@ import React from "react";
 // import axios from "axios";
 function Add(props){
   
- 
   const[toggle1,setToggle1]=React.useState(false)
   // const[replace,setReplace]=React.useState(false)
 
@@ -19,32 +18,36 @@ function handletoggle1(e){
   //  }
 }
   if(props.data1.length===undefined && props.selection1.length===0)
-    {props.setSelection1(<select onChange={newbatsman}>
+    {props.setSelection1(<select onChange={(e)=>{props.setStriker([e.target.selectedIndex,e.target.value])
+                                                    props.setArrival(false)
+ }}><option value="select">select</option>
     {props.data1.team1players.map((players)=>{
        // console.log(players.value)
        return(
     <option key={players.id} value={players.name}>
        {players.name}</option>)})}</select>)
- props.setSelection2(<select onChange={props.newbowler}>
-  {props.data1.team2players.map((players)=>
+ props.setSelection2(<select onChange={(e)=>{props.setNonstriker([e.target.selectedIndex,e.target.value])
+                                              props.setArrival(false)
+
+                                                }}>
+  <option value="select">select</option>
+  {props.data1.team1players.map((players)=>
   <option key={players.id} value={players.name}>{players.name}</option>)}</select>)
 }
   // console.log(props.toggle) 
-  function newbatsman(e){
-    // console.log(props.toggle,"hi")
-    if(props.toggle){
-           props.setStriker([e.target.selectedIndex,e.target.value])
-    }
-    else{
-       props.setNonstriker([e.target.selectedIndex,e.target.value])
+//   function newbatsman(e){
+//     // console.log(props.toggle,"hi")
+//     if(props.toggle){
+//            props.setStriker([e.target.selectedIndex,e.target.value])
+//     }
+//     else{
+//        props.setNonstriker([e.target.selectedIndex,e.target.value])
  
-    }
-    props.setArrival(false)
- }
+//     }
+//     props.setArrival(false)
+//  }
 
-if(props.count===props.totalovers*6){
-  props.nextinnings()
-}
+
 
 // function newbowler(e){
 //   setReplace(false)
@@ -58,23 +61,45 @@ return(
   <>
   
  {toggle1? (<div className="options">
-  <button className="single" onClick={handletoggle1}>single</button>
-  <button className="double" onClick={handletoggle1}>double</button>
-  <button className="triple" onClick={handletoggle1}>triple</button>
-  <button className="four" onClick={handletoggle1}>four</button>
-  <button className="six" onClick={handletoggle1}>six</button>
-  <button className="wicket" onClick={handletoggle1}>wicket</button>
-  <button className="runout+1" onClick={handletoggle1}>runout+1</button>
-  <button className="runout+2" onClick={handletoggle1}>runout+2</button>
-  <button className="runout+3" onClick={handletoggle1}>runout+3</button>
+  <button className="dotball" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>Dotball</button>
+  <button className="single" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>single</button>
+  <button className="double" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>double</button>
+  <button className="triple" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>triple</button>
+  <button className="four" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>four</button>
+  <button className="six" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>six</button>
+ <button className="wicket" onClick={(event)=>{handletoggle1(event);props.setNewcount(prev=>prev+1)
+}}>wicket</button>
+  <button className="wide" onClick={handletoggle1}>wide</button>
+  <button className="wide+1" onClick={handletoggle1}>wide+1</button>
+  <button className="wide+2" onClick={handletoggle1}>wide+2</button>
+  <button className="wide+3" onClick={handletoggle1}>wide+3</button>
+  <button className="wide+4" onClick={handletoggle1}>wide+4</button>
+  <button className="wide+6" onClick={handletoggle1}>wide+6</button>
+  <button className="wide+wicket" onClick={handletoggle1}>wide+wicket</button>
+  <button className="noball" onClick={handletoggle1}>noball</button>
+  <button className="noball+1" onClick={handletoggle1}>noball+1</button>
+  <button className="noball+2" onClick={handletoggle1}>noball+2</button>
+  <button className="noball+3" onClick={handletoggle1}>noball+3</button>
+  <button className="noball+4" onClick={handletoggle1}>noball+4</button>
+  <button className="noball+6" onClick={handletoggle1}>noball+6</button>
+  <button className="noball+wicket" onClick={handletoggle1}>noball+wicket</button>
+ 
+ 
+ 
 
   </div>):<span></span>}
 
 
 
 
-  {(props.count*6===props.totalovers*6)?(<span></span>):<button onClick={handletoggle1}>Add new ball</button>}
-  <h2>total bowls{props.totalovers*6}</h2><h2>balls remaining {(props.totalovers*6)-(props.count*6)}</h2>
+  {(props.count*6===props.totalovers*6)?(<span></span>):<button className="newball" onClick={(event)=>{handletoggle1(event)}}>Add new ball</button>}
+  <div className="total"><h2>total bowls{props.totalovers*6}</h2><h2>balls remaining {(props.totalovers*6)-(props.newcount)}</h2></div>
   {/* {replace?props.selection2:<span></span>} */}
 
   </>
