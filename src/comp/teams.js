@@ -11,6 +11,7 @@ const[striker,setStriker]=React.useState([[<select><option>select</option></sele
 const[nonstriker,setNonstriker]=React.useState([<select><option>select</option></select>])
 const[bowler,setBowler]=React.useState([<select><option>select</option></select>])
 const[overs,setOvers]=React.useState(0)
+const[loading,setLoading]=React.useState(true)
 // let team11,team22
 localStorage.clear()
 
@@ -40,10 +41,14 @@ function click1(e){
              </select>)
       
         return {...prev,batting:data.teamname1,bowling:data.teamname2}
+
     })
         console.log("postdata1",postdata)
+    e.target.style.backgroundColor="crimson"
+    e.target.style.color="white"
+    console.log(e.target.style)
 }
-function click2(){  
+function click2(e){  
     setPostdata((prev)=>{
         
         setStriker(
@@ -71,6 +76,9 @@ function click2(){
         return {...prev,batting:data.teamname2,bowling:data.teamname1}
     })
         console.log("postdata2",postdata)
+         e.target.style.backgroundColor="crimson"
+         e.target.style.color="white"
+
 
 }
 function click3(e){
@@ -101,7 +109,7 @@ function click4(e){
     console.log(overs,"ovee")
     setPostdata((prev)=>{
     //  console.log(prev,"prevvvv",striker)
-     return({...prev,overs:e.target.value})
+     return({...prev,overs:e.target.value,admin:true})
     })
         //  console.log("postdata3",postdata)
  }
@@ -109,8 +117,8 @@ function click4(e){
 // console.log(data)
 
 function click10(e){
-    axios.post(`${process.env.REACT_APP_API_URL}/toss`,postdata,
-    // axios.post(`http://localhost:2001/toss`,postdata,
+    // axios.post(`${process.env.REACT_APP_API_URL}/toss`,postdata,
+    axios.post(`http://localhost:2001/toss`,postdata,
     {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -128,12 +136,13 @@ function handlerequest(){
 
 async function api(){
     try{
-        const response=await axios.get(`${process.env.REACT_APP_API_URL}/teams`)
-        // const response=await axios.get(`http://localhost:2001/teams`)
+        // const response=await axios.get(`${process.env.REACT_APP_API_URL}/teams`)
+        const response=await axios.get(`http://localhost:2001/teams`)
 
         //  setData(response.data) 
          console.log(response.data)
           setData(response.data)
+          setLoading(false)
         //   console.log(data)
 }
     catch(err){
@@ -166,6 +175,8 @@ if(data.length===undefined&&team11.length===0){
 // console.log("teamsetting",data.team1players,data.length,team11.length)
 
 // console.log("postdata3",postdata)
+if(loading) return <h2>Loading...</h2>
+
 
 return(
  <>

@@ -1,5 +1,12 @@
 body{
-    background:#FCF5E5		;
+    background:url("img/istockphoto-464497970-1024x1024-transformed.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-attachment: fixed;
+    backdrop-filter: blur(4px);
+    backdrop-filter: brightness(50%);
+    min-height: 100vh;
 
 }
 
@@ -21,13 +28,12 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: crimson;
+    color: rgb(255, 248, 249);
     animation: pop 3s ;
 
 }
-
 .home h2{
-    color: crimson;
+    color: rgb(255, 255, 255);
 }
 .home button{
     width: 130px;
@@ -49,14 +55,91 @@ body{
     border-radius: 50px;
     animation: bounce 7s;
 }
+.signup{
+    display: block;
+    background-color: rgba(226, 221, 222, 0.315);
+    /* border: 2px solid crimson; */
+    height: 300px;
+    width: 500px;
+    margin: -200px auto 0 auto;
+    border-radius: 10px
+}
+.signup button{
+    width: 50%;
+    background-color:whitesmoke;
+    border: 1px solid rgb(216, 194, 198);
+    font-size: large;
+    font-weight: bolder;
+    color: crimson;
+}
+.sign-in-btn{
+    border-top-left-radius: 10px;
+
+}
+.sign-up-btn{
+    border-top-right-radius: 10px;
+
+}
+.auth{
+
+    display: block;
+    height: 60px;
+    width: 300px;
+    /* background-color: aliceblue; */
+    border-radius: 20px;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align:left;
+}
+.auth1{
+
+    visibility: hidden;
+    height: 60px;
+    width: 300px;
+    /* background-color: aliceblue; */
+    border-radius: 20px;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align:left;
+
+}
+
+.auth input{
+    height: 40px;
+    display: block;
+    width: 300px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    text-indent: 10px;
+    /* background-color: red; */
+}
+.auth label{
+    width: 20px;
+    font-weight: bold;
+    color: red;
+    
+}
+.sign button{
+    margin-top: 29px;
+    border-radius:10px ;
+}
+
+.logged-info{
+    color: white;
+    margin-top: 10px;
+}
 /* header */
+.user{
+    display: none;
+}
 .head{
     display: flex;
     flex-direction: column;
     justify-content:end;
-    height: 70vh;
-    background-color: crimson;
-    border: 2px solid beige;
+    height: 90vh;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    /* border: 2px solid beige; */
 
 }
 .dot{
@@ -76,6 +159,34 @@ body{
     font-weight: bold;
     font-size: large;
 }
+.scoree{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: aqua; */
+    width: 60px;
+    height: 30px;
+    overflow-y: hidden;
+}
+.scoree h3{
+    position: absolute;
+    top: 16px;
+}
+.teem{
+    position: absolute;
+    animation: roll 700ms linear;
+    left: 0px;
+    top: 16px;
+}
+.wick{
+    position: absolute;
+    right: 11px;
+    top: 16px;
+
+    animation: roll 700ms linear;
+
+}
 .cont{
    display: flex;
    width: 100vw;
@@ -93,8 +204,8 @@ body{
   /* border: 2px solid rosybrown; */
 }
 .teams p{
-    color: cornsilk;
-    font-size: large;
+    color:white;
+    font-size: x-large;
     font-weight: bold;
 
 }
@@ -158,7 +269,7 @@ body{
     height: 60vh;
     width: 76vw;
     /* backdrop-filter: blur(10px); */
-    background-color: rgba(201, 81, 105, 0.8);
+    background-color: rgba(220, 20, 60, 0.671);
     border: 6px solid rgb(228, 164, 164);
     border-radius: 9px;
     color: beige;
@@ -206,6 +317,8 @@ body{
     justify-content: center;
     text-align: center;
     margin: 0 auto;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+
 }
 .scorecard table{
     border-collapse: collapse;
@@ -227,6 +340,8 @@ body{
 .scorecard table tr td{
     color: crimson;
     border: 2px solid crimson;
+    background-color: white;
+    border-radius: 0px;
 }
 
 
@@ -258,14 +373,15 @@ body{
     margin-top: 20px;
     text-indent: 20px;
     font-size: large;
+    border: 2px solid rgb(247, 243, 243);
 }
-.inputs button{
+.in-but{
     margin: 20px 0;
     width: 40vw;
     height: 50px;
-    border: 2px solid rgb(32, 25, 25);
+    border: 2px solid rgb(243, 240, 240);
     border-radius: 10px;
-    color: rgb(24, 22, 18);
+    color: crimson;
     background-color: white;
     border-radius: 30px;
      font-weight: bold;
@@ -281,7 +397,7 @@ body{
     align-items: center;
     text-align: center;
     font-size: medium;
-    color: rgb(24, 18, 19);
+    color: rgb(255, 255, 255);
     /* margin-bottom: -50px; */
     /* background-color: aqua; */
     /* margin: -100px 0 0 0; */
@@ -309,7 +425,7 @@ body{
     /* text-align: start; */
     font-size: larger;
     font-weight: bolder;
-    color:rgb(15, 15, 14);
+    color:rgb(241, 241, 238);
     /* background-color: aqua; */
 }
 table{
@@ -332,13 +448,15 @@ td{
     /* border: 1px solid rgb(231, 73, 94); */
     border-radius: 20px;
     /* margin-bottom: 20px; */
-    background-color: rgb(212, 183, 188);
+    background-color: rgb(255, 255, 255);
     color: rgb(231, 73, 94);
+    padding: 5px;
+    width: 190px;
 
 
 }
 .players{
-    color: rgb(10, 10, 9);
+    color: rgb(255, 255, 255);
 }
 
 .team1{
@@ -360,6 +478,13 @@ td{
 .entering div button{
     width: 50%;
     border-radius: 20px;
+    border: 2px solid rgb(243, 240, 240);
+    border-radius: 10px;
+    color: crimson;
+    background-color: white;
+    border-radius: 30px;
+     font-weight: bold;
+     font-size: large;
 }
 .entering div{
     width: 100%;
@@ -389,6 +514,7 @@ td{
     font-size:x-large;
     background-color: rgb(223, 56, 92);
     width: 300px;
+    padding: 10px;
     border: 4px solid beige;
     
 }
@@ -407,7 +533,7 @@ td{
     width: 90px;
     font-size: large;
     color: crimson;
-    background-color: beige;
+    background-color: rgb(255, 255, 255);
     border: 3px solid crimson;
 }
 .toss .team1{
@@ -553,6 +679,14 @@ td{
     to{
        scale: 1;
     }
+}
+@keyframes roll{
+   from{
+    top: 0px;
+   }
+   to{
+    top: 16px;
+   }
 }
 @keyframes bounce{
     0%{

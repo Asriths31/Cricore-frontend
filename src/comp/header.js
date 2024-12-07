@@ -5,7 +5,11 @@ import "./App.css"
 import img1 from "./img/cricket (2).png"
 import img2 from "./img/cricket-bat.png"
 import Add from "./update"
+import {useLocation} from "react-router-dom"
+import User from "./user"
 function Header(){
+   const location=useLocation()
+   
    var[data,setData]=React.useState({})
    var postdata,batsmanscore
    const[overs,setOvers]=React.useState()
@@ -21,7 +25,6 @@ function Header(){
    const[strikerbowls,setStrikerbowls]=React.useState(0)
    const[nonstrikerruns,setNontrikeruns]=React.useState(0)   
    const[nonstrikerbowls,setNonstrikerbowls]=React.useState(0)   
-   const[wickets,setWickets]=React.useState(0)
    const[teamwickets,setTeamwickets]=React.useState(0)
    const[timeline,setTimeline]=React.useState([])
    var[count,setCount]=React.useState(0)
@@ -39,6 +42,8 @@ function Header(){
    const[scorecardtoggle,setScorecardtoggle]=React.useState(false)
    const[scorecard,setScorecard]=React.useState({})
    const[scoregiven,setScoregiven]=React.useState(0)
+   const[admin,setAdmin]=React.useState(false)
+   var[bowler_wickets,setBowler_wickets]=React.useState(0)
    //  const timeline1=timeline.map((prev)=><h2>{prev}</h2>   
    //      // console.log(prev)
    //  )
@@ -99,17 +104,18 @@ React.useEffect(()=>{
 },[count,chase])
 
 React.useEffect(()=>{
-   axios.get(`${process.env.REACT_APP_API_URL}/toss`)
-   // axios.get(`http://localhost:2001/toss`)
+   // axios.get(`${process.env.REACT_APP_API_URL}/toss`)
+   axios.get(`http://localhost:2001/toss`)
    .then((res)=>{
       data=res.data
       setLoading(false)
-      setBowler([data.bowler.id,data.bowler.name])
+      setBowler([data.bowler.id,data.bowler.name,bowler_wickets])
       setStriker([data.striker.id,data.striker.name])
       setNonstriker([data.nonstriker.id,data.nonstriker.name])
       setOvers(data.overs)
       setBatting(data.batting)
       setBowling(data.bowling)
+      setAdmin(data.admin)
       
       // console.log(data.overs,78)
    })
@@ -118,8 +124,8 @@ React.useEffect(()=>{
   
 // },[loading])
 React.useEffect(()=>{
-   axios.get(`${process.env.REACT_APP_API_URL}/teams`)
-   // axios.get(`http://localhost:2001/teams`)
+   // axios.get(`${process.env.REACT_APP_API_URL}/teams`)
+   axios.get(`http://localhost:2001/teams`)
 
    .then((res)=>{
       setData1(res.data)
@@ -135,15 +141,15 @@ React.useEffect(()=>{
 
 async function newbowler(){
 console.log("bowler")
-const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
-   // const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
+// const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
+   const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
 
    {
     team:bowling,
     score:0,
-    wickets:0,
+    wickets:bowler_wickets,
     ballsplayed:0,
-    
+    oversbowled:0,
     scoregiven:scoregiven*1
     
    },
@@ -151,9 +157,9 @@ const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowle
     'Content-Type': 'application/x-www-form-urlencoded'
   }})
   console.log(res123)
-  
-//   const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
-   const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${striker[0]}`,
+  bowler_wickets=0
+  const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
+   // const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${striker[0]}`,
 
    {
        team:batting,
@@ -161,20 +167,22 @@ const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowle
        wickets:0,
        ballsplayed:strikerbowls,
        oversbowled:0,
+       scoregiven:0
        
       },
       { headers: {
        'Content-Type': 'application/x-www-form-urlencoded'
      }})
-     const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
-   // const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
+   //   const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
+   const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
    
    {
        team:batting,
        score:nonstrikerruns,
        wickets:0,
        ballsplayed:nonstrikerbowls,
-       oversbowled:0
+       oversbowled:0,
+       scoregiven:0
       },
       { headers: {
        'Content-Type': 'application/x-www-form-urlencoded'
@@ -190,7 +198,7 @@ const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowle
 setScoregiven(0)
 
      setChange(true)
-   setSelection3(<select onChange={(e)=>{setBowler([e.target.selectedIndex,e.target.value])
+   setSelection3(<select onChange={(e)=>{setBowler([e.target.selectedIndex,e.target.value,bowler_wickets])
       setChange(false)
       setTimeline([])
       setToggle(prev=>!prev)
@@ -206,15 +214,15 @@ async function nextinnings(){
 
    console.log("in next innings")
 
-   const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
-   // const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
+   // const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
+   const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
 
       {
        team:bowling,
        score:0,
        wickets:0,
        ballsplayed:0,
-       
+       oversbowled:overs,
        scoregiven:scoregiven
        
       },
@@ -222,8 +230,8 @@ async function nextinnings(){
        'Content-Type': 'application/x-www-form-urlencoded'
      }})
      console.log("bowling",res123)
-  const res= await axios.patch(`${process.env.REACT_APP_API_URL}/update`,
-// const res= await axios.patch(`http://localhost:2001/update`,
+//   const res= await axios.patch(`${process.env.REACT_APP_API_URL}/update`,
+const res= await axios.patch(`http://localhost:2001/update`,
 
 {team:batting,
     score:teamruns,
@@ -234,8 +242,8 @@ async function nextinnings(){
     'Content-Type': 'application/x-www-form-urlencoded'
   }})
 
-const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${striker[0]}`,
-// const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
+// const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${striker[0]}`,
+const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
 
 {
     team:batting,
@@ -248,8 +256,8 @@ const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${str
    { headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }})
-  const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
-// const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
+//   const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
+const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
 
 {
     team:batting,
@@ -273,14 +281,29 @@ const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${str
 
 async function handlewicket(){
    console.log("wicket")
-   
-   // axios.patch(`${process.env.REACT_APP_API_URL}/toss`,
-   //    data={...data,}
-   // )
+bowler_wickets=bowler_wickets+1
+   console.log(bowler_wickets)
+   // const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`, 
+   const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
 
+      {  
+       team:bowling,
+       score:0,
+       wickets:bowler_wickets,   
+       ballsplayed:0,
+       oversbowled:overs,
+       scoregiven:scoregiven
+       
+      },
+      { 
+         headers: {
+       'Content-Type': 'application/x-www-form-urlencoded'
+     }
+   })
+     console.log("bowling",res123)
 
-     axios.patch(`${process.env.REACT_APP_API_URL}/update`,
-   // axios.patch(`http://localhost:2001/update`,
+   //   axios.patch(`${process.env.REACT_APP_API_URL}/update`,
+   axios.patch(`http://localhost:2001/update`,
 
    {team:batting,
       score:teamruns,
@@ -292,8 +315,8 @@ async function handlewicket(){
     }})
     console.log(toggle)
 
-  const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${toggle?striker[0]:nonstriker[0]}`,
-// const response= await axios.patch(`http://localhost:2001/update/${toggle?striker[0]:nonstriker[0]}`,
+//   const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${toggle?striker[0]:nonstriker[0]}`,
+const response= await axios.patch(`http://localhost:2001/update/${toggle?striker[0]:nonstriker[0]}`,
 
 {
       team:batting,
@@ -344,8 +367,8 @@ async function handleclick(e){
 
    }
    setOversplayed(count)
-   // const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
-      const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
+   const res123= await axios.patch(`http://localhost:2001/update/${bowler[0]}`,
+      // const res123= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${bowler[0]}`,
 
       {
        team:bowling,
@@ -361,8 +384,8 @@ async function handleclick(e){
      }})
      console.log(res123)
      
-   //   const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
-      const response= await axios.patch(`${process.env.REACT_APP_API_URL}${striker[0]}`,
+     const response= await axios.patch(`http://localhost:2001/update/${striker[0]}`,
+      // const response= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${striker[0]}`,
    
       {
           team:batting,
@@ -375,8 +398,8 @@ async function handleclick(e){
          { headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }})
-        const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
-      // const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
+      //   const response1= await axios.patch(`${process.env.REACT_APP_API_URL}/update/${nonstriker[0]}`,
+      const response1= await axios.patch(`http://localhost:2001/update/${nonstriker[0]}`,
       
       {
           team:batting,
@@ -643,7 +666,6 @@ async function handleclick(e){
          timeline.push("Nb+W")
          handlewicket()
 
-
          default:
             break;
       }
@@ -654,6 +676,7 @@ async function handleclick(e){
        
       
    }
+   console.log(scorecard)
    if(scorecard.team2players!==undefined){
       var scorecardd1=<div>
          <table>
@@ -661,7 +684,7 @@ async function handleclick(e){
          <th><td>oversbowled</td></th>
          <th><td>runsgiven</td></th>
          {scorecard.team2players.map(player=>
-           { if(player.oversbowled>0)
+           { if(player.scoregiven>0)
             {return(
             
             <tr>
@@ -694,7 +717,7 @@ async function handleclick(e){
          </th>
          
              {scorecard.team1players.map(player=>{
-      // console.log(player)
+      // console.log(player) 
      if(player.ballsplayed>0){ return(
          <tr>
          <td>
@@ -722,6 +745,41 @@ async function handleclick(e){
 
    // console.log(data1.teamname1)
 // console.log(oversplayed,"oversplayed")
+function scoree(){
+{if(teamruns===0){return (<h3 className="teem" >{teamruns}</h3>)}
+else{return <h3 className="teem" key={teamruns}>{teamruns}</h3>}}
+}
+let wicketss=<h3 className="wick" key={teamwickets}>{teamwickets}</h3>
+
+
+// location.state.setDam({ 
+//    loading:{loading}, 
+//    img2:{img2}, 
+//    batting:{batting},
+//     scoree:{scoree},
+//      wicketss:{wicketss},
+// count:{count},
+//  count1:{count1},
+//   overs:{overs},
+//    img1:{img1},
+//     bowling:{bowling},
+//      bowler:{bowler},
+//       timeliner:{timeliner},
+// toggle:{toggle},
+//  striker:{striker},
+//   nonstriker:{nonstriker},
+//    strikerruns:{strikerruns},
+//     strikerbowls:{strikerbowls},     
+// nonstrikerruns:{nonstrikerruns},
+//  nonstrikerbowls:{nonstrikerbowls},
+//   chase:{chase},
+//   teamruns:{teamruns},
+//   scorecardd:{scorecardd},
+//    scorecardd1:{scorecardd1}
+
+// })
+
+
 
 if(loading) return <h1>loading</h1>
 
@@ -737,7 +795,8 @@ if(loading) return <h1>loading</h1>
       </div>
       <div className="score">
          <h2>Vs</h2>
-         <h3>{teamruns}/{teamwickets}</h3>
+         <div className="scoree">{scoree()}<h2>/</h2>{wicketss}</div>
+         {/* <h3>{teamruns}/{teamwickets}</h3> */}
          <h4>({count}.{count1})/({overs})</h4>
 
       </div>
@@ -759,7 +818,7 @@ if(loading) return <h1>loading</h1>
 
          </div>
       </div>
-      <Add count={count} setTimeline={setTimeline} toggle={toggle}
+    {  <Add count={count} setTimeline={setTimeline} toggle={toggle}
        setSelection1={setSelection1} selection1={selection1} selection2={selection2}
         setSelection2={setSelection2} 
        setSelection3={setSelection3} handletoggle={handletoggle} setBowler={setBowler}
@@ -767,7 +826,7 @@ if(loading) return <h1>loading</h1>
        setNonstriker={setNonstriker}
        totalovers={overs} data1={data1} setArrival={setArrival}
        newbowler={newbowler} nextinnings={nextinnings}
-       newcount={newcount} setNewcount={setNewcount} teamwickets={teamwickets}/>
+       newcount={newcount} setNewcount={setNewcount} teamwickets={teamwickets}/>}
      </div>
      {arrival?<div className="selection">
 
@@ -795,6 +854,13 @@ if(loading) return <h1>loading</h1>
             <div className="list">{scorecardd1}</div>
         </div>
      </div>
+     <div className="user">
+       {/* <User  loading={loading} img2={img2} batting={batting} scoree={scoree()} wicketss={wicketss}
+       count={count} count1={count1} overs={overs} img1={img1} bowling={bowling} bowler={bowler} timeliner={timeliner}
+       toggle={toggle} striker={striker} nonstriker={nonstriker} strikerruns={strikerruns} strikerbowls={strikerbowls} 
+       nonstrikerruns={nonstrikerruns} nonstrikerbowls={nonstrikerbowls} chase={chase} teamruns={teamruns}
+       scorecardd={scorecardd} scorecardd1={scorecardd1}/> */}
+      </div>
      </>
 
     )

@@ -9,8 +9,8 @@ function Sign(){
    var [teamname2,setTeamname2]=React.useState("")
    const[count,setCount]=React.useState(false)
    const[playing,setPlaying]=React.useState(true)
-   const[team1,setTeam1]=React.useState([])
-   const[team2,setTeam2]=React.useState([])
+   var[team1,setTeam1]=React.useState([])
+   var[team2,setTeam2]=React.useState([])
    const[player,setPlayer]=React.useState("")
    const[team11,setTeam11]=React.useState([])
    const[team22,setTeam22]=React.useState([])
@@ -100,7 +100,13 @@ function handlesubmit(f){
   
 }
 
-
+function defaultTeam(){
+      setTeam1(["jaiswal","dhawan","Rayudu","dube","dhoni","jadeja","Bhuvaneswar","Natarajan","chahal","chahar","sakariya"])
+      setTeam2(["Rohith","Kohli","Tilak Verma","Sky","Sanju","Riyan","Hardik","Kuldeep","Axar Patel","ashwin","Bhumrah"])
+      console.log(team1,team2)
+      setList(prev=>prev+1)
+      setToggle(prev=>!prev)
+}   
    function remove(){
     setList((prev)=>{
         return prev+1
@@ -163,8 +169,8 @@ function handlesubmit(f){
    
 
   function post(){
-    axios.post(`${process.env.REACT_APP_API_URL}/post`,{
-        // axios.post(`http://localhost:2001/post`,{
+    // axios.post(`${process.env.REACT_APP_API_URL}/post`,{
+        axios.post(`http://localhost:2001/post`,{
 
     teamname1:teamname1,
         teamname2:teamname2,
@@ -174,7 +180,7 @@ function handlesubmit(f){
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-    })
+    }).then((data)=>console.log(data))
   }
 
   function handlekey(e){
@@ -191,7 +197,7 @@ function handlesubmit(f){
     <input placeholder="Enter the team name" onChange={handlechange1}></input>
     <p>Vs</p>
     <input placeholder="Opponent team" onChange={handlechange2}></input>
-    <button onClick={handlesubmit}>Submit</button>
+    <button onClick={handlesubmit} className="in-but">Submit</button>
     </div>
     <div >
      {count?(
@@ -206,13 +212,15 @@ function handlesubmit(f){
         {count?
      (playing?(
      <div className="team1">
+        <button onClick={defaultTeam} className="in-but">Set default players</button>
+        <h3>or</h3>
         <h2>Enter the 11 players of {teamname1}</h2>
         <div className="entering">
         <input placeholder="enter the playersname" onChange={handleplayers} value={player} onKeyDown={handlekey} required></input>
         {alert?<span>Please enter a name</span>:<span></span>}
         <div>
-        <button onClick={handleclick}>Add</button>
-        <button onClick={remove}>remove</button>
+        <button onClick={handleclick} className="in-but">Add</button>
+        <button onClick={remove} className="in-but">remove</button>
         </div>
 
         </div>
@@ -239,7 +247,7 @@ function handlesubmit(f){
     </div> ):<p></p>   
     
     }
-    {toggle?<Link to="/teams"><button onClick={post} className="submit">Submit</button></Link>:<p></p>}
+    {toggle?<Link to="/teams"><button onClick={post} className="in-but">Submit</button></Link>:<p></p>}
     </div>
     </div>
     </>
